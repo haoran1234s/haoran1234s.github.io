@@ -1,0 +1,224 @@
+.contact {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.contact__glow {
+  position: absolute;
+  right: -10vw;
+  bottom: -20vw;
+  z-index: -1;
+  width: min(80vw, 1100px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%),
+    radial-gradient(circle at 65% 60%, color-mix(in srgb, var(--accent-2) 35%, transparent), transparent 62%);
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.contact .section-label {
+  margin-bottom: clamp(20px, 3vw, 36px);
+}
+
+.contact__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px 48px;
+}
+
+.contact__title {
+  font-size: clamp(3rem, 9.4vw, 9.6rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+:lang(zh-CN) .contact__title {
+  font-size: clamp(2.8rem, 8.4vw, 8.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.contact__title .line:last-child {
+  color: var(--accent-ink);
+}
+
+.contact__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: clamp(200px, 21vw, 280px);
+  aspect-ratio: 1;
+  margin-inline: auto 0;
+}
+
+.contact__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: contact-spin 24s linear infinite;
+}
+
+.contact__ring text {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--fg-muted);
+}
+
+@keyframes contact-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.contact__badge .btn--round {
+  width: 62%;
+}
+
+.contact__intro {
+  max-width: 640px;
+  margin-top: clamp(28px, 4vw, 48px);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  color: var(--fg-muted);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(48px, 7vw, 96px);
+  border-top: 1px solid var(--line-strong);
+}
+
+.contact__block {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 12px;
+  padding: 26px 24px 0 0;
+}
+
+.contact__block + .contact__block {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+
+.contact__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.contact__value {
+  max-width: 100%;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.contact__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding-inline: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.contact__copy:hover {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.contact__socials {
+  display: grid;
+  grid-template-columns: max-content;
+  gap: 6px;
+}
+
+/* Each roll is as wide as its longer face (label or @handle); spreading the link keeps every arrow in one column. */
+.contact__social {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.contact__social svg {
+  color: var(--fg-faint);
+  transition:
+    color 0.3s ease,
+    translate 0.4s var(--ease-back);
+}
+
+.contact__social:hover svg {
+  color: var(--accent-ink);
+  translate: 2px -2px;
+}
+
+.contact__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact__note {
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 1024px) {
+  .contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact__block {
+    padding-bottom: 26px;
+  }
+
+  .contact__block:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .contact__block:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__block + .contact__block {
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .contact__badge {
+    margin-inline: auto;
+  }
+}

@@ -1,0 +1,244 @@
+.print-resume {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 14mm 15mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #16161a !important;
+  }
+
+  /* Chrome fills the @page margins with the color-scheme canvas colour, not the root background,
+     so the dark theme would otherwise print near-black page edges. */
+  html {
+    color-scheme: light !important;
+  }
+
+  body > :not(#root),
+  #root > :not(.print-resume) {
+    display: none !important;
+  }
+
+  .print-resume {
+    --pr-ink: #16161a;
+    --pr-muted: #5f5f68;
+    --pr-line: #dcdce2;
+    --pr-accent: #5b3df5;
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 9.4pt;
+    line-height: 1.5;
+    color: var(--pr-ink);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .pr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8mm;
+    padding-bottom: 5mm;
+    border-bottom: 1.5pt solid var(--pr-ink);
+  }
+
+  .pr-name {
+    font-size: 23pt;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .pr-name span {
+    margin-left: 2mm;
+    font-size: 12pt;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--pr-muted);
+  }
+
+  .pr-role {
+    margin-top: 1.5mm;
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--pr-accent);
+  }
+
+  .pr-contact {
+    font-size: 8.4pt;
+    line-height: 1.6;
+    text-align: right;
+    color: #3a3a42;
+  }
+
+  .pr-section {
+    display: grid;
+    grid-template-columns: 26mm minmax(0, 1fr);
+    gap: 5mm;
+    padding-block: 4.5mm;
+    border-bottom: 0.5pt solid var(--pr-line);
+  }
+
+  .pr-section:last-child {
+    border-bottom: 0;
+  }
+
+  .pr-section h2 {
+    padding-top: 0.6mm;
+    font-size: 8.4pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pr-accent);
+    break-after: avoid;
+  }
+
+  .pr-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1mm 5mm;
+    margin-top: 2.5mm;
+    color: var(--pr-muted);
+  }
+
+  .pr-stats strong {
+    font-weight: 700;
+    color: var(--pr-ink);
+  }
+
+  .pr-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8mm 6mm;
+    margin-top: 2.5mm;
+  }
+
+  .pr-facts div,
+  .pr-skills div {
+    display: grid;
+    grid-template-columns: 20mm minmax(0, 1fr);
+    gap: 2mm;
+  }
+
+  .pr-skills div {
+    grid-template-columns: 34mm minmax(0, 1fr);
+    gap: 3mm;
+    padding-block: 0.6mm;
+  }
+
+  .pr-facts dt {
+    color: var(--pr-muted);
+  }
+
+  .pr-skills dt {
+    font-weight: 600;
+  }
+
+  /* Short entries stay whole. Long ones may split rather than leave half-empty pages, but only
+     with the heading, summary and at least two bullets on each side of the break. */
+  .pr-item__head,
+  .pr-item > p:not(.pr-stack),
+  .pr-bullets li:first-child,
+  .pr-bullets li:nth-last-child(2) {
+    break-after: avoid;
+  }
+
+  .pr-item p,
+  .pr-bullets li {
+    break-inside: avoid;
+  }
+
+  .pr-item + .pr-item {
+    margin-top: 4mm;
+  }
+
+  .pr-item__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4mm;
+    margin-bottom: 0.8mm;
+  }
+
+  .pr-item h3 {
+    font-size: 10.4pt;
+    font-weight: 600;
+  }
+
+  .pr-item h3 span {
+    font-weight: 400;
+    color: var(--pr-muted);
+  }
+
+  .pr-item__meta {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    color: var(--pr-muted);
+  }
+
+  .pr-item__role {
+    margin-top: -0.6mm;
+    margin-bottom: 0.8mm;
+    font-weight: 500;
+    color: var(--pr-muted);
+  }
+
+  .pr-bullets {
+    margin-top: 1.2mm;
+  }
+
+  .pr-bullets li {
+    position: relative;
+    padding-left: 4mm;
+  }
+
+  .pr-bullets li + li {
+    margin-top: 0.5mm;
+  }
+
+  .pr-bullets li::before {
+    content: '';
+    position: absolute;
+    top: 0.72em;
+    left: 0.6mm;
+    width: 1.6mm;
+    height: 0.5pt;
+    background: var(--pr-accent);
+  }
+
+  .pr-stack {
+    break-before: avoid;
+    margin-top: 1.2mm;
+    font-family: var(--font-mono);
+    font-size: 7.8pt;
+    color: var(--pr-muted);
+  }
+
+  .pr-links {
+    display: grid;
+    gap: 0.8mm;
+  }
+
+  .pr-links li {
+    display: grid;
+    grid-template-columns: 20mm minmax(0, 1fr);
+    gap: 2mm;
+  }
+
+  .pr-links span {
+    font-weight: 600;
+  }
+
+  .pr-links a {
+    overflow-wrap: anywhere;
+  }
+}

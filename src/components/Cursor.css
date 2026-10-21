@@ -1,0 +1,106 @@
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-visible .cursor {
+  opacity: 1;
+}
+
+.cursor--dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fg);
+  transition:
+    opacity 0.3s ease,
+    scale 0.3s var(--ease-out);
+}
+
+.cursor--ring {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent);
+  transition:
+    width 0.45s var(--ease-out),
+    height 0.45s var(--ease-out),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease,
+    scale 0.3s var(--ease-out);
+}
+
+.cursor__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--accent-contrast);
+  opacity: 0;
+  scale: 0.5;
+  transition:
+    opacity 0.3s ease,
+    scale 0.45s var(--ease-out);
+}
+
+.cursor--ring[data-state='link'] {
+  width: 64px;
+  height: 64px;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.cursor--ring[data-state='view'],
+.cursor--ring[data-state='label'],
+.cursor--ring[data-state='drag'] {
+  width: 92px;
+  height: 92px;
+  border-color: transparent;
+  background: var(--accent);
+}
+
+.cursor--ring[data-state='view'] .cursor__label,
+.cursor--ring[data-state='label'] .cursor__label,
+.cursor--ring[data-state='drag'] .cursor__label {
+  opacity: 1;
+  scale: 1;
+}
+
+.cursor--dot[data-state='view'],
+.cursor--dot[data-state='label'],
+.cursor--dot[data-state='drag'],
+.cursor--dot[data-state='link'] {
+  opacity: 0;
+}
+
+.cursor--ring[data-state='dot'] {
+  width: 18px;
+  height: 18px;
+  border-color: var(--accent);
+}
+
+.cursor--ring[data-state='hide'],
+.cursor--dot[data-state='hide'] {
+  opacity: 0;
+}
+
+.cursor-down .cursor--ring {
+  scale: 0.82;
+}
+
+.cursor-down .cursor--dot {
+  scale: 1.6;
+}

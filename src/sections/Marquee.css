@@ -1,0 +1,74 @@
+.marquee {
+  position: relative;
+  padding-block: clamp(48px, 7vw, 96px);
+  overflow: hidden;
+}
+
+.marquee__band {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-block: clamp(14px, 1.6vw, 22px);
+}
+
+.marquee__band--solid {
+  position: relative;
+  z-index: 1;
+  rotate: -2.5deg;
+  scale: 1.06;
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.marquee__band--outline {
+  rotate: 2deg;
+  scale: 1.06;
+  margin-top: -6px;
+  background: var(--bg-elev);
+  border-block: 1px solid var(--line);
+}
+
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 36px);
+  padding-right: clamp(18px, 2.4vw, 36px);
+  font-size: clamp(1.7rem, 4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.marquee__band--outline .marquee__item {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--fg-muted);
+}
+
+.marquee__star {
+  width: 0.55em;
+  height: 0.55em;
+  fill: currentColor;
+  animation: spin 6s linear infinite;
+}
+
+.marquee__band--outline .marquee__star {
+  fill: var(--accent-ink);
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
