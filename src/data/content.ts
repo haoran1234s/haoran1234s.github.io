@@ -114,7 +114,7 @@ export interface Content {
     wordmark: string
     role: string
     email: string
-    phone: string
+    phone?: string
     location: string
     timezone: string
     status: string
@@ -180,12 +180,9 @@ export interface Content {
   }
 }
 
-const socials: Social[] = [
-  { label: 'GitHub', handle: '@linzhiyuan', href: 'https://github.com/' },
-  { label: 'Juejin', handle: '林知远', href: 'https://juejin.cn/' },
-  { label: 'CodePen', handle: '@zhiyuan', href: 'https://codepen.io/' },
-  { label: 'Dribbble', handle: '@zhiyuan', href: 'https://dribbble.com/' },
-]
+const GITHUB = 'https://github.com/haoran1234s'
+
+const socials: Social[] = [{ label: 'GitHub', handle: '@haoran1234s', href: GITHUB }]
 
 const projectMeta: Record<'aurora' | 'pulse' | 'orbit' | 'ledger', Pick<Project, 'palette' | 'pattern'>> = {
   aurora: { palette: ['#7b61ff', '#34d5ff', '#c8ff4d'], pattern: 'waves' },
@@ -196,8 +193,8 @@ const projectMeta: Record<'aurora' | 'pulse' | 'orbit' | 'ledger', Pick<Project,
 
 const zh: Content = {
   meta: {
-    title: '林知远 · 创意前端工程师',
-    description: '林知远 —— 专注交互动效、WebGL 与设计系统的创意前端工程师。在线作品集与可打印简历。',
+    title: '汪浩然 · AI 应用与可视化前端工程师',
+    description: '汪浩然 —— 常驻天津、6 年经验的前端工程师，关注 AI 应用、交互动效与 3D 可视化。在线作品集与可打印简历。',
   },
   ui: {
     skip: '跳到主要内容',
@@ -239,14 +236,13 @@ const zh: Content = {
     { id: 'contact', label: '联系' },
   ],
   profile: {
-    name: '林知远',
-    nameAlt: 'Lin Zhiyuan',
-    initials: 'LZ',
-    wordmark: 'Zhiyuan',
-    role: '高级前端工程师 · 交互动效方向',
-    email: 'hello@linzhiyuan.dev',
-    phone: '+86 138 0000 0000',
-    location: '中国 · 上海',
+    name: '汪浩然',
+    nameAlt: 'Wang Haoran',
+    initials: 'WH',
+    wordmark: 'Haoran',
+    role: '高级前端工程师 · AI 应用与可视化方向',
+    email: '2482900307@qq.com',
+    location: '中国 · 天津',
     timezone: 'Asia/Shanghai',
     status: '正在看新机会',
     socials,
@@ -254,32 +250,30 @@ const zh: Content = {
   hero: {
     titleLines: ['让界面', '拥有呼吸感的', '前端工程师'],
     rolePrefix: '我擅长',
-    roles: ['交互动效设计与实现', 'WebGL / Three.js 创意开发', '高性能可视化', '设计系统与组件库', '工程化与性能优化'],
+    roles: ['AI 应用与智能交互', 'WebGL / Three.js 3D 可视化', '交互动效设计与实现', '数据可视化', '工程化与性能优化'],
     intro:
-      '7 年前端经验，把设计稿里的「感觉」翻译成 60fps 的代码。我相信好的动效不是装饰，而是让用户读懂界面的语言。',
+      '6 年前端经验，爱折腾 AI 与各种新技术，把设计稿里的「感觉」翻译成 60fps 的代码。我相信好的动效不是装饰，而是让用户读懂界面的语言。',
     primaryCta: '查看作品',
     secondaryCta: '下载简历',
   },
   marquee: {
-    top: ['交互动效', 'WebGL', '创意编程', '设计系统', '性能优化', '数据可视化'],
+    top: ['AI 应用', '交互动效', 'WebGL', '3D 可视化', '创意编程', '性能优化'],
     bottom: ['React', 'TypeScript', 'GSAP', 'Three.js', 'GLSL', 'Vue', 'Node.js', 'Canvas', 'SVG', 'Vite'],
   },
   about: {
     label: '关于我',
     title: '把复杂留给自己，把流畅留给用户。',
     paragraph:
-      '我是一名专注体验与动效的前端工程师。过去七年，我在电商、内容社区和 SaaS 平台中搭建过设计系统、主导过品牌官网改版，也写过不少着色器。我关心每一帧的节奏，也关心代码能否被团队长期维护 —— 动效要好看，更要可控、可复用、可度量。',
+      '我是汪浩然，一名有 6 年经验的前端工程师，目前在天津。我喜欢把复杂的交互做得自然、流畅，也对 AI 等新技术充满好奇 —— 大模型应用、AI 辅助编程、Web 3D 与可视化，新东西一出来我总会第一时间上手试一试，再琢磨怎样把它落到真实的产品体验里。工作之外我热爱运动，它让我保持充沛的精力和积极的心态，也让我习惯了坚持与复盘。',
     stats: [
-      { value: 7, suffix: '+', label: '年前端开发经验' },
-      { value: 40, suffix: '+', label: '上线项目' },
-      { value: 120, suffix: 'k', label: '开源项目 npm 周下载' },
-      { value: 98, suffix: '', label: 'Lighthouse 性能均分' },
+      { value: 6, suffix: '年', label: '前端开发经验' },
+      { value: 60, suffix: 'fps', label: '每一帧动效的流畅底线' },
     ],
     facts: [
-      { label: '现居', value: '上海' },
-      { label: '教育', value: '同济大学 · 软件工程 本科' },
-      { label: '语言', value: '中文 / 英语（可作为工作语言）' },
-      { label: '状态', value: '可在一个月内到岗' },
+      { label: '现居', value: '天津' },
+      { label: '经验', value: '6 年前端开发' },
+      { label: '方向', value: 'AI 应用 · 可视化前端' },
+      { label: '爱好', value: '运动 · 研究 AI 新技术' },
     ],
   },
   skills: {
@@ -287,10 +281,10 @@ const zh: Content = {
     title: '工具箱',
     intro: '拖动球体可以旋转它；悬停或点按任意技能，球体会把它转到你面前。',
     groups: [
-      { title: '核心语言与框架', items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Vue 3', 'Node.js'] },
-      { title: '动效与图形', items: ['GSAP', 'Framer Motion', 'Three.js', 'GLSL', 'Canvas 2D', 'SVG', 'Lottie'] },
-      { title: '工程化与性能', items: ['Vite', 'Webpack', 'Monorepo', 'Vitest', 'Playwright', 'Web Vitals'] },
-      { title: '设计与协作', items: ['Figma', 'Design Tokens', 'Storybook', '无障碍 A11y', '国际化 i18n'] },
+      { title: '核心语言与框架', items: ['TypeScript', 'JavaScript', 'React', 'Vue 3', 'Next.js', 'Node.js'] },
+      { title: 'AI 应用开发', items: ['大模型 API', 'SSE 流式输出', 'Agent 交互', 'RAG', 'Prompt 工程', 'AI 辅助编程'] },
+      { title: '动效与可视化', items: ['GSAP', 'Three.js', 'WebGL', 'GLSL', 'Canvas 2D', 'SVG', 'ECharts'] },
+      { title: '工程化与性能', items: ['Vite', 'Webpack', 'Monorepo', 'Vitest', 'Web Vitals', 'CI/CD'] },
     ],
   },
   experience: {
@@ -403,9 +397,9 @@ const zh: Content = {
     ],
     more: {
       title: '还有更多',
-      text: '更多实验、开源组件与技术文章都放在 GitHub 和掘金上，欢迎来逛逛。',
+      text: '更多实验和代码都放在 GitHub 上，欢迎来逛逛。',
       cta: '去 GitHub 看看',
-      href: 'https://github.com/',
+      href: GITHUB,
     },
   },
   lab: {
@@ -425,7 +419,7 @@ const zh: Content = {
   contact: {
     label: '联系方式',
     titleLines: ['一起做点', '有意思的东西'],
-    intro: '正在寻找高级前端 / 创意开发 / 互动技术相关的岗位。如果你的团队在意体验细节，我们应该聊聊。',
+    intro: '正在寻找 AI 应用前端、3D 可视化与创意交互方向的岗位。如果你的团队在意体验细节，也在认真把 AI 用进产品，我们应该聊聊。',
     cta: '发邮件给我',
     availability: '通常 24 小时内回复',
     labels: { email: '邮箱', phone: '电话 / 微信', social: '社交主页', status: '当前状态' },
@@ -442,9 +436,9 @@ const zh: Content = {
 
 const en: Content = {
   meta: {
-    title: 'Lin Zhiyuan · Creative Frontend Engineer',
+    title: 'Wang Haoran · Frontend Engineer, AI & Visualisation',
     description:
-      'Lin Zhiyuan — a creative frontend engineer focused on interaction design, motion, WebGL and design systems. Portfolio & printable resume.',
+      'Wang Haoran — a Tianjin-based frontend engineer with six years of experience, focused on AI products, interaction & motion and 3D visualisation. Portfolio & printable resume.',
   },
   ui: {
     skip: 'Skip to content',
@@ -486,14 +480,13 @@ const en: Content = {
     { id: 'contact', label: 'Contact' },
   ],
   profile: {
-    name: 'Lin Zhiyuan',
-    nameAlt: '林知远',
-    initials: 'LZ',
-    wordmark: 'Zhiyuan',
-    role: 'Senior Frontend Engineer · Interaction & Motion',
-    email: 'hello@linzhiyuan.dev',
-    phone: '+86 138 0000 0000',
-    location: 'Shanghai, China',
+    name: 'Wang Haoran',
+    nameAlt: '汪浩然',
+    initials: 'WH',
+    wordmark: 'Haoran',
+    role: 'Senior Frontend Engineer · AI Products & Visualisation',
+    email: '2482900307@qq.com',
+    location: 'Tianjin, China',
     timezone: 'Asia/Shanghai',
     status: 'Open to new roles',
     socials,
@@ -501,32 +494,30 @@ const en: Content = {
   hero: {
     titleLines: ['Making', 'interfaces', 'breathe.'],
     rolePrefix: 'Frontend engineer, specialising in',
-    roles: ['interaction & motion design', 'creative WebGL / Three.js', 'high-performance data viz', 'design systems', 'tooling & web performance'],
+    roles: ['AI-powered product UIs', 'WebGL & 3D visualisation', 'interaction & motion design', 'data visualisation', 'tooling & web performance'],
     intro:
-      'Seven years of turning the “feel” of a design into 60fps code. I believe great motion is not decoration — it is the language that helps people understand an interface.',
+      'Six years in frontend, always tinkering with AI and new tech. I turn the “feel” of a design into 60fps code, because great motion is not decoration — it is the language that helps people understand an interface.',
     primaryCta: 'See my work',
     secondaryCta: 'Get résumé',
   },
   marquee: {
-    top: ['Interaction', 'Motion', 'WebGL', 'Creative coding', 'Design systems', 'Performance'],
+    top: ['AI products', 'Interaction', 'Motion', 'WebGL', '3D & data viz', 'Performance'],
     bottom: ['React', 'TypeScript', 'GSAP', 'Three.js', 'GLSL', 'Vue', 'Node.js', 'Canvas', 'SVG', 'Vite'],
   },
   about: {
     label: 'About',
     title: 'I take on the complexity so users only feel the flow.',
     paragraph:
-      'I am a frontend engineer obsessed with experience and motion. Over seven years I have built design systems, led brand-site redesigns and written more shaders than I can count — across e-commerce, content communities and SaaS. I care about the rhythm of every frame, and just as much about whether the code stays maintainable for the team: motion should be beautiful, but also controllable, reusable and measurable.',
+      'I am Wang Haoran, a frontend engineer based in Tianjin with six years of experience. I love making complex interactions feel natural and smooth, and I am endlessly curious about AI and other new tech — LLM-powered apps, AI-assisted coding, Web 3D and data visualisation. When something new comes out I try it right away, then work out how it could make a real product experience better. Outside work I am into sports: they keep me energetic and positive, and have taught me persistence and the habit of reflecting on what to improve.',
     stats: [
-      { value: 7, suffix: '+', label: 'years building for the web' },
-      { value: 40, suffix: '+', label: 'projects shipped' },
-      { value: 120, suffix: 'k', label: 'weekly npm downloads (OSS)' },
-      { value: 98, suffix: '', label: 'average Lighthouse perf score' },
+      { value: 6, suffix: '', label: 'years of frontend experience' },
+      { value: 60, suffix: 'fps', label: 'the bar for every animation' },
     ],
     facts: [
-      { label: 'Based in', value: 'Shanghai' },
-      { label: 'Education', value: 'B.Eng. Software Engineering, Tongji University' },
-      { label: 'Languages', value: 'Mandarin / English (professional)' },
-      { label: 'Status', value: 'Available within a month' },
+      { label: 'Based in', value: 'Tianjin, China' },
+      { label: 'Experience', value: '6 years in frontend' },
+      { label: 'Focus', value: 'AI products · visual frontend' },
+      { label: 'Interests', value: 'Sports · exploring AI & new tech' },
     ],
   },
   skills: {
@@ -534,10 +525,10 @@ const en: Content = {
     title: 'Toolbox',
     intro: 'Drag the sphere to spin it. Hover or tap any skill and the sphere will turn it to face you.',
     groups: [
-      { title: 'Languages & frameworks', items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Vue 3', 'Node.js'] },
-      { title: 'Motion & graphics', items: ['GSAP', 'Framer Motion', 'Three.js', 'GLSL', 'Canvas 2D', 'SVG', 'Lottie'] },
-      { title: 'Tooling & performance', items: ['Vite', 'Webpack', 'Monorepo', 'Vitest', 'Playwright', 'Web Vitals'] },
-      { title: 'Design & collaboration', items: ['Figma', 'Design Tokens', 'Storybook', 'Accessibility', 'i18n'] },
+      { title: 'Languages & frameworks', items: ['TypeScript', 'JavaScript', 'React', 'Vue 3', 'Next.js', 'Node.js'] },
+      { title: 'AI engineering', items: ['LLM APIs', 'SSE streaming', 'Agent UIs', 'RAG', 'Prompt engineering', 'AI-assisted coding'] },
+      { title: 'Motion & visualisation', items: ['GSAP', 'Three.js', 'WebGL', 'GLSL', 'Canvas 2D', 'SVG', 'ECharts'] },
+      { title: 'Tooling & performance', items: ['Vite', 'Webpack', 'Monorepo', 'Vitest', 'Web Vitals', 'CI/CD'] },
     ],
   },
   experience: {
@@ -650,9 +641,9 @@ const en: Content = {
     ],
     more: {
       title: 'There is more',
-      text: 'More experiments, open-source components and write-ups live on GitHub — come and have a look.',
+      text: 'More experiments and code live on GitHub — come and have a look.',
       cta: 'Visit GitHub',
-      href: 'https://github.com/',
+      href: GITHUB,
     },
   },
   lab: {
@@ -672,7 +663,8 @@ const en: Content = {
   contact: {
     label: 'Contact',
     titleLines: ["Let's build", 'something fun'],
-    intro: 'I am looking for senior frontend, creative developer or interactive tech roles. If your team cares about the details of experience, we should talk.',
+    intro:
+      'I am looking for frontend roles around AI products, 3D / data visualisation and creative interaction. If your team cares about the details of experience and is serious about bringing AI into the product, we should talk.',
     cta: 'Email me',
     availability: 'Usually replies within 24h',
     labels: { email: 'Email', phone: 'Phone / WeChat', social: 'Elsewhere', status: 'Status' },

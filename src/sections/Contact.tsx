@@ -119,12 +119,14 @@ export function Contact() {
             </button>
           </div>
 
-          <div className="contact__block" data-reveal data-reveal-delay="0.06">
-            <span className="contact__label">{contact.labels.phone}</span>
-            <a className="contact__value" href={`tel:${profile.phone.replace(/\s/g, '')}`}>
-              {profile.phone}
-            </a>
-          </div>
+          {profile.phone && (
+            <div className="contact__block" data-reveal data-reveal-delay="0.06">
+              <span className="contact__label">{contact.labels.phone}</span>
+              <a className="contact__value" href={`tel:${profile.phone.replace(/\s/g, '')}`}>
+                {profile.phone}
+              </a>
+            </div>
+          )}
 
           <div className="contact__block" data-reveal data-reveal-delay="0.12">
             <span className="contact__label">{contact.labels.social}</span>

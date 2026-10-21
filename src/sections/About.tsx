@@ -17,7 +17,9 @@ export function About() {
       if (prefersReducedMotion()) return
       const paragraph = root.current!.querySelector<HTMLElement>('.about__paragraph')!
       const cjk = isCJK(about.paragraph)
-      const split = SplitText.create(paragraph, { type: cjk ? 'chars' : 'words', aria: 'none' })
+      // Plain inline spans keep the browser's line breaking: inline-block wrappers would allow a break between any
+      // two characters, splitting Latin words like "AI" and starting lines with CJK punctuation.
+      const split = SplitText.create(paragraph, { type: cjk ? 'chars' : 'words', tag: 'span', aria: 'none' })
       gsap.fromTo(
         cjk ? split.chars : split.words,
         { opacity: 0.14 },

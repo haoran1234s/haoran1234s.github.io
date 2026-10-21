@@ -25,7 +25,7 @@ export function PrintResume() {
           <li>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </li>
-          <li>{profile.phone}</li>
+          {profile.phone && <li>{profile.phone}</li>}
           <li>{profile.location}</li>
           <li>{profile.status}</li>
           <li>
