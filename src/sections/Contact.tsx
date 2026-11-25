@@ -30,7 +30,7 @@ async function copyText(text: string) {
 }
 
 export function Contact() {
-  const { content } = useApp()
+  const { content, lang } = useApp()
   const { contact, profile, ui } = content
   const root = useRef<HTMLElement>(null)
   const ringId = `ring-${useId().replace(/[^\w-]/g, '')}`
@@ -68,8 +68,8 @@ export function Contact() {
     return () => window.clearTimeout(timer)
   }, [copied])
 
-  const onCopy = async () => {
-    if (await copyText(profile.email)) setCopied(true)
+  const onCopy = async (value: string) => {
+    if (await copyText(value)) setCopied(true)
   }
 
   return (
@@ -113,7 +113,7 @@ export function Contact() {
                 <span aria-hidden="true">{profile.email}</span>
               </span>
             </a>
-            <button type="button" className="contact__copy" onClick={onCopy}>
+            <button type="button" className="contact__copy" onClick={() => onCopy(profile.email)}>
               <Copy width={15} height={15} />
               {ui.copyEmail}
             </button>
@@ -125,25 +125,31 @@ export function Contact() {
               <a className="contact__value" href={`tel:${profile.phone.replace(/\s/g, '')}`}>
                 {profile.phone}
               </a>
+              <button type="button" className="contact__copy" onClick={() => onCopy(profile.phone!)}>
+                <Copy width={15} height={15} />
+                {lang === 'zh' ? '复制微信 / 电话' : 'Copy phone'}
+              </button>
             </div>
           )}
 
-          <div className="contact__block" data-reveal data-reveal-delay="0.12">
-            <span className="contact__label">{contact.labels.social}</span>
-            <ul className="contact__socials">
-              {profile.socials.map((social) => (
-                <li key={social.label}>
-                  <a href={social.href} target="_blank" rel="noreferrer" className="contact__social has-roll">
-                    <span className="roll">
-                      <span>{social.label}</span>
-                      <span aria-hidden="true">{social.handle}</span>
-                    </span>
-                    <ArrowUpRight width={14} height={14} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {profile.socials.length > 0 && (
+            <div className="contact__block" data-reveal data-reveal-delay="0.12">
+              <span className="contact__label">{contact.labels.social}</span>
+              <ul className="contact__socials">
+                {profile.socials.map((social) => (
+                  <li key={social.label}>
+                    <a href={social.href} target="_blank" rel="noreferrer" className="contact__social has-roll">
+                      <span className="roll">
+                        <span>{social.label}</span>
+                        <span aria-hidden="true">{social.handle}</span>
+                      </span>
+                      <ArrowUpRight width={14} height={14} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="contact__block" data-reveal data-reveal-delay="0.18">
             <span className="contact__label">{contact.labels.status}</span>

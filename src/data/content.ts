@@ -6,6 +6,46 @@
 
 export type Lang = 'zh' | 'en'
 
+/** 站点内容轨道：default 为原前端简历，ai3d 为 AI+Blender 写实 3D 专属简历 */
+export type Track = 'default' | 'ai3d'
+
+export interface ProjectMediaItem {
+  src: string
+  label: string
+}
+
+export interface ProjectSpec {
+  label: string
+  value: string
+}
+
+export interface PipelineStep {
+  step: string
+  title: string
+  tools: string
+  summary: string
+  deliverable: string
+}
+
+export interface PipelineScript {
+  filename: string
+  title: string
+  description: string
+  code: string
+}
+
+export interface PipelineSection {
+  label: string
+  title: string
+  intro: string
+  steps: PipelineStep[]
+  standardsTitle: string
+  standards: string[]
+  script: PipelineScript
+  copyCode: string
+  copiedCode: string
+}
+
 export interface NavItem {
   id: string
   label: string
@@ -64,6 +104,10 @@ export interface Project {
   pattern: CoverPattern
   /** Optional screenshot (put the file in /public and reference it like "./covers/aurora.jpg"). */
   cover?: string
+  /** 可选多视图切换（如 Cycles 写实成图 / 白模布线拆解） */
+  gallery?: ProjectMediaItem[]
+  /** 可选 3D 工程交付参数 */
+  specs?: ProjectSpec[]
 }
 
 export interface LabItem {
@@ -162,6 +206,8 @@ export interface Content {
     items: LabItem[]
     particleWord: string
   }
+  /** 3D 专属轨道使用的交付规范与脚本展示区 */
+  pipeline?: PipelineSection
   contact: {
     label: string
     titleLines: string[]

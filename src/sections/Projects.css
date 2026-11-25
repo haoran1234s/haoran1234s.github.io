@@ -99,6 +99,12 @@
   object-fit: cover;
 }
 
+.project-card__parallax .cover--studio {
+  padding: clamp(16px, 2.4vw, 28px);
+  object-fit: contain;
+  background: radial-gradient(circle at 50% 42%, #2c2f3a 0%, #17181f 62%, #0e0f13 100%);
+}
+
 .project-card__open:hover .project-card__parallax {
   scale: 1.06;
 }

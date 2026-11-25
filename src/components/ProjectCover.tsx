@@ -144,7 +144,17 @@ const PATTERNS: Record<CoverPattern, (props: PatternProps) => JSX.Element> = {
 /** Procedural cover art so the template looks finished before real screenshots are added. */
 export function ProjectCover({ project }: { project: Project }) {
   const id = useId().replace(/[^a-zA-Z0-9_-]/g, '')
-  if (project.cover) return <img className="cover" src={project.cover} alt="" loading="lazy" decoding="async" />
+  if (project.cover) {
+    return (
+      <img
+        className={project.gallery?.length ? 'cover cover--studio' : 'cover'}
+        src={project.cover}
+        alt={project.title}
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
 
   const Pattern = PATTERNS[project.pattern]
   const [from, to] = project.palette

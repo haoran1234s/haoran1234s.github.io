@@ -8,6 +8,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { useReveal } from '../hooks/useReveal'
 import { Flip, gsap, useGSAP } from '../lib/gsap'
 import { pad } from '../lib/motion'
+import { scrollToTarget } from '../lib/scroll'
 import './Projects.css'
 
 /** Keep in sync with the media query in Projects.css. */
@@ -175,7 +176,20 @@ export function Projects() {
             </li>
           ))}
           <li className="project-card project-card--more">
-            <a className="project-more" href={projects.more.href} target="_blank" rel="noreferrer">
+            <a
+              className="project-more"
+              href={projects.more.href}
+              target={projects.more.href.startsWith('#') ? undefined : '_blank'}
+              rel={projects.more.href.startsWith('#') ? undefined : 'noreferrer'}
+              onClick={
+                projects.more.href.startsWith('#')
+                  ? (event) => {
+                      event.preventDefault()
+                      scrollToTarget(projects.more.href)
+                    }
+                  : undefined
+              }
+            >
               <span className="project-more__title">{projects.more.title}</span>
               <span className="project-more__text">{projects.more.text}</span>
               <span className="project-more__cta">

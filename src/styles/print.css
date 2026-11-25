@@ -223,6 +223,12 @@
     color: var(--pr-muted);
   }
 
+  .pr-specs {
+    margin-top: 1mm;
+    font-size: 8.2pt;
+    color: #3a3a42;
+  }
+
   .pr-links {
     display: grid;
     gap: 0.8mm;

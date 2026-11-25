@@ -14,11 +14,12 @@ import { Experience } from './sections/Experience'
 import { Hero } from './sections/Hero'
 import { Lab } from './sections/Lab'
 import { Marquee } from './sections/Marquee'
+import { Pipeline } from './sections/Pipeline'
 import { Projects } from './sections/Projects'
 import { Skills } from './sections/Skills'
 
 export function App() {
-  const { lang, ready, content } = useApp()
+  const { lang, track, ready, content } = useApp()
   const { ui } = content
   const greeted = useRef(false)
 
@@ -67,9 +68,9 @@ export function App() {
         <About key={`about-${lang}`} />
         <Skills key={`skills-${lang}`} />
         <Experience key={`experience-${lang}`} />
-        <Projects key={`projects-${lang}`} />
-        <Lab key={`lab-${lang}`} />
-        <Contact key={`contact-${lang}`} />
+        <Projects key={`projects-${track}-${lang}`} />
+        {content.pipeline ? <Pipeline key={`pipeline-${track}-${lang}`} /> : <Lab key={`lab-${lang}`} />}
+        <Contact key={`contact-${track}-${lang}`} />
       </main>
       <Footer />
       <PrintResume />

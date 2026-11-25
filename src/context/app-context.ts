@@ -1,10 +1,11 @@
 import { createContext, use } from 'react'
-import type { Content, Lang } from '../data/content'
+import type { Content, Lang, Track } from '../data/content'
 
 export type Theme = 'dark' | 'light'
 
 export interface AppContextValue {
   lang: Lang
+  track: Track
   theme: Theme
   content: Content
   /** True once the preloader has finished — intro animations wait for it. */

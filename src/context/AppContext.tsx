@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { flushSync } from 'react-dom'
-import { content as contentByLang, type Lang } from '../data/content'
+import { ai3dContent } from '../data/ai3dContent'
+import { content as contentByLang, type Lang, type Track } from '../data/content'
 import { ScrollTrigger } from '../lib/gsap'
 import { prefersReducedMotion } from '../lib/motion'
 import { jumpTo } from '../lib/scroll'
@@ -8,6 +9,21 @@ import { AppContext, type Theme } from './app-context'
 
 const THEME_KEY = 'mp-theme'
 const LANG_KEY = 'mp-lang'
+const AI3D_PARAM_VALUES = new Set(['ai3d', '3d', 'blender'])
+
+/** 从 URL 查询参数解析当前内容轨道，未传或未知参数时默认返回原版简历 */
+function resolveTrack(): Track {
+  try {
+    const params = new URLSearchParams(window.location.search)
+    for (const key of ['track', 'mode', 'v']) {
+      const value = params.get(key)?.trim().toLowerCase()
+      if (value && AI3D_PARAM_VALUES.has(value)) return 'ai3d'
+    }
+  } catch {
+    // 忽略异常查询参数，回退默认简历
+  }
+  return 'default'
+}
 
 function readStorage(key: string) {
   try {
@@ -84,16 +100,20 @@ function restoreScrollAnchor(anchor: ScrollAnchor | null) {
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(initialLang)
+  const [track] = useState<Track>(resolveTrack)
   const [theme, setTheme] = useState<Theme>(initialTheme)
   const [ready, setReady] = useState(false)
-  const content = contentByLang[lang]
+  const content = (track === 'ai3d' ? ai3dContent : contentByLang)[lang]
 
   useEffect(() => {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
+    document.documentElement.dataset.track = track
     document.title = content.meta.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', content.meta.description)
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', content.meta.title)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', content.meta.description)
     writeStorage(LANG_KEY, lang)
-  }, [lang, content])
+  }, [lang, track, content])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -138,8 +158,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const markReady = useCallback(() => setReady(true), [])
 
   const value = useMemo(
-    () => ({ lang, theme, content, ready, markReady, toggleLang, toggleTheme }),
-    [lang, theme, content, ready, markReady, toggleLang, toggleTheme],
+    () => ({ lang, track, theme, content, ready, markReady, toggleLang, toggleTheme }),
+    [lang, track, theme, content, ready, markReady, toggleLang, toggleTheme],
   )
 
   return <AppContext value={value}>{children}</AppContext>

@@ -175,14 +175,16 @@ export function Header() {
         </nav>
         <div className="menu__footer">
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
-          <div className="menu__socials">
-            {profile.socials.map((social) => (
-              <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                {social.label}
-                <ArrowUpRight width={14} height={14} />
-              </a>
-            ))}
-          </div>
+          {profile.socials.length > 0 && (
+            <div className="menu__socials">
+              {profile.socials.map((social) => (
+                <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
+                  {social.label}
+                  <ArrowUpRight width={14} height={14} />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -1,8 +1,9 @@
-import { useEffect, useEffectEvent, useId, useRef } from 'react'
+import { useEffect, useEffectEvent, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp } from '../context/app-context'
 import type { Project } from '../data/content'
 import { Flip, gsap, useGSAP } from '../lib/gsap'
+import { cls } from '../lib/cls'
 import { pad, prefersReducedMotion } from '../lib/motion'
 import { lockScroll } from '../lib/scroll'
 import { ArrowRight, ArrowUpRight, Close } from './Icons'
@@ -31,6 +32,10 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
   const shownId = useRef<string | null>(null)
   const currentId = useRef(project.id)
   const titleId = useId()
+  const [mediaState, setMediaState] = useState<{ projectId: string; index: number }>({ projectId: project.id, index: 0 })
+  const gallery = project.gallery?.length ? project.gallery : null
+  const activeMediaIndex = mediaState.projectId === project.id ? mediaState.index : 0
+  const activeMedia = gallery?.[activeMediaIndex] ?? null
 
   useEffect(() => {
     currentId.current = project.id
@@ -123,10 +128,30 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
       <div className="modal__backdrop" onClick={close} />
       <div className="modal__surface" />
       <div className="modal__panel">
-        <div className="modal__media" data-flip-id={`cover-${project.id}`}>
-          <div className="modal__media-inner" key={project.id}>
-            <ProjectCover project={project} />
+        <div className={cls('modal__media', gallery && 'modal__media--studio')} data-flip-id={`cover-${project.id}`}>
+          <div className="modal__media-inner" key={`${project.id}-${activeMediaIndex}`}>
+            {activeMedia ? (
+              <img className="cover cover--studio" src={activeMedia.src} alt={`${project.title} - ${activeMedia.label}`} />
+            ) : (
+              <ProjectCover project={project} />
+            )}
           </div>
+          {gallery && gallery.length > 1 && (
+            <div className="modal__views" role="tablist" aria-label={project.title}>
+              {gallery.map((item, viewIdx) => (
+                <button
+                  key={item.src}
+                  type="button"
+                  role="tab"
+                  aria-selected={viewIdx === activeMediaIndex}
+                  className={cls('modal__view-btn', viewIdx === activeMediaIndex && 'is-active')}
+                  onClick={() => setMediaState({ projectId: project.id, index: viewIdx })}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          )}
           <span className="modal__counter">
             {pad(index + 1)} / {pad(total)}
           </span>
@@ -159,6 +184,16 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
               </dd>
             </div>
           </dl>
+          {project.specs && project.specs.length > 0 && (
+            <dl className="modal__specs">
+              {project.specs.map((spec) => (
+                <div key={spec.label}>
+                  <dt>{spec.label}</dt>
+                  <dd>{spec.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
           <div className="modal__highlights">
             <h3>{ui.projectHighlights}</h3>
             <ol>
@@ -170,17 +205,19 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
               ))}
             </ol>
           </div>
-          <div className="modal__links">
-            {project.links.map((link) => (
-              <a key={link.label} className="modal__link has-roll" href={link.href} target="_blank" rel="noreferrer">
-                <span className="roll">
-                  <span>{link.label}</span>
-                  <span aria-hidden="true">{link.label}</span>
-                </span>
-                <ArrowUpRight width={16} height={16} />
-              </a>
-            ))}
-          </div>
+          {project.links.length > 0 && (
+            <div className="modal__links">
+              {project.links.map((link) => (
+                <a key={link.label} className="modal__link has-roll" href={link.href} target="_blank" rel="noreferrer">
+                  <span className="roll">
+                    <span>{link.label}</span>
+                    <span aria-hidden="true">{link.label}</span>
+                  </span>
+                  <ArrowUpRight width={16} height={16} />
+                </a>
+              ))}
+            </div>
+          )}
           <button type="button" className="modal__next" onClick={onNext} data-cursor="label" data-cursor-text={ui.next}>
             <span className="modal__next-label">{ui.next}</span>
             <span className="modal__next-title">{nextTitle}</span>

@@ -9,8 +9,8 @@ const prettyUrl = (href: string) => href.replace(/^https?:\/\//, '').replace(/\/
  */
 export function PrintResume() {
   const { content } = useApp()
-  const { profile, about, skills, experience, projects, print } = content
-  const site = `${window.location.origin}${window.location.pathname.replace(/index\.html$/, '')}`
+  const { profile, about, skills, experience, projects, contact, print } = content
+  const site = `${window.location.origin}${window.location.pathname.replace(/index\.html$/, '')}${window.location.search}`
 
   return (
     <article className="print-resume">
@@ -25,7 +25,11 @@ export function PrintResume() {
           <li>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </li>
-          {profile.phone && <li>{profile.phone}</li>}
+          {profile.phone && (
+            <li>
+              {contact.labels.phone}: {profile.phone}
+            </li>
+          )}
           <li>{profile.location}</li>
           <li>{profile.status}</li>
           <li>
@@ -108,6 +112,9 @@ export function PrintResume() {
                 <span className="pr-item__meta">{project.year}</span>
               </div>
               <p>{project.description}</p>
+              {project.specs && project.specs.length > 0 && (
+                <p className="pr-specs">{project.specs.map((spec) => `${spec.label}: ${spec.value}`).join(' · ')}</p>
+              )}
               <ul className="pr-bullets">
                 {project.highlights.map((highlight) => (
                   <li key={highlight}>{highlight}</li>
@@ -119,19 +126,21 @@ export function PrintResume() {
         </div>
       </section>
 
-      <section className="pr-section">
-        <h2>{print.contact}</h2>
-        <ul className="pr-links">
-          {profile.socials.map((social) => (
-            <li key={social.label}>
-              <span>{social.label}</span>
-              <a href={social.href}>
-                {social.handle} · {prettyUrl(social.href)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {profile.socials.length > 0 && (
+        <section className="pr-section">
+          <h2>{print.contact}</h2>
+          <ul className="pr-links">
+            {profile.socials.map((social) => (
+              <li key={social.label}>
+                <span>{social.label}</span>
+                <a href={social.href}>
+                  {social.handle} · {prettyUrl(social.href)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </article>
   )
 }
