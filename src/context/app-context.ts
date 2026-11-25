@@ -10,9 +10,13 @@ export interface AppContextValue {
   content: Content
   /** True once the preloader has finished — intro animations wait for it. */
   ready: boolean
+  /** 当前打开的 3D 模型检视弹框对应的项目 ID */
+  activeModelId: string | null
   markReady: () => void
   toggleLang: () => void
   toggleTheme: (origin?: { x: number; y: number }) => void
+  openModelViewer: (projectId?: string) => void
+  closeModelViewer: () => void
 }
 
 export const AppContext = createContext<AppContextValue | null>(null)

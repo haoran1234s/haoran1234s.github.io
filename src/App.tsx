@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Cursor } from './components/Cursor'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { ModelViewerModal } from './components/ModelViewerModal'
 import { Preloader } from './components/Preloader'
 import { PrintResume } from './components/PrintResume'
 import { ScrollProgress } from './components/ScrollProgress'
@@ -19,7 +20,7 @@ import { Projects } from './sections/Projects'
 import { Skills } from './sections/Skills'
 
 export function App() {
-  const { lang, track, ready, content } = useApp()
+  const { lang, track, ready, content, activeModelId } = useApp()
   const { ui } = content
   const greeted = useRef(false)
 
@@ -64,16 +65,30 @@ export function App() {
       <Header />
       <main id="main" tabIndex={-1}>
         <Hero />
-        <Marquee key={`marquee-${lang}`} />
-        <About key={`about-${lang}`} />
-        <Skills key={`skills-${lang}`} />
-        <Experience key={`experience-${lang}`} />
-        <Projects key={`projects-${track}-${lang}`} />
-        {content.pipeline ? <Pipeline key={`pipeline-${track}-${lang}`} /> : <Lab key={`lab-${lang}`} />}
+        {track === 'ai3d' ? (
+          <>
+            <Projects key={`projects-${track}-${lang}`} sectionIndex="01" />
+            <Marquee key={`marquee-${track}-${lang}`} />
+            <About key={`about-${track}-${lang}`} sectionIndex="02" />
+            <Skills key={`skills-${track}-${lang}`} sectionIndex="03" />
+            <Experience key={`experience-${track}-${lang}`} sectionIndex="04" />
+            {content.pipeline && <Pipeline key={`pipeline-${track}-${lang}`} />}
+          </>
+        ) : (
+          <>
+            <Marquee key={`marquee-${lang}`} />
+            <About key={`about-${lang}`} />
+            <Skills key={`skills-${lang}`} />
+            <Experience key={`experience-${lang}`} />
+            <Projects key={`projects-${lang}`} />
+            <Lab key={`lab-${lang}`} />
+          </>
+        )}
         <Contact key={`contact-${track}-${lang}`} />
       </main>
       <Footer />
       <PrintResume />
+      {activeModelId && <ModelViewerModal />}
       <div className="grain" aria-hidden="true" />
     </>
   )

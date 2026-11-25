@@ -6,7 +6,7 @@ import { Flip, gsap, useGSAP } from '../lib/gsap'
 import { cls } from '../lib/cls'
 import { pad, prefersReducedMotion } from '../lib/motion'
 import { lockScroll } from '../lib/scroll'
-import { ArrowRight, ArrowUpRight, Close } from './Icons'
+import { ArrowRight, ArrowUpRight, Close, Cube3D } from './Icons'
 import { ProjectCover } from './ProjectCover'
 import './ProjectModal.css'
 
@@ -25,12 +25,13 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, index, total, nextTitle, flipState, getCardMedia, onNext, onClosed }: ProjectModalProps) {
-  const { content } = useApp()
+  const { activeModelId, content, lang, openModelViewer } = useApp()
   const { ui } = content
   const root = useRef<HTMLDivElement>(null)
   const closing = useRef(false)
   const shownId = useRef<string | null>(null)
   const currentId = useRef(project.id)
+  const activeModelRef = useRef(activeModelId)
   const titleId = useId()
   const [mediaState, setMediaState] = useState<{ projectId: string; index: number }>({ projectId: project.id, index: 0 })
   const gallery = project.gallery?.length ? project.gallery : null
@@ -40,6 +41,10 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
   useEffect(() => {
     currentId.current = project.id
   }, [project.id])
+
+  useEffect(() => {
+    activeModelRef.current = activeModelId
+  }, [activeModelId])
 
   // Opening choreography: backdrop, surface, cover (via Flip) and staggered copy.
   const { context } = useGSAP(
@@ -114,7 +119,9 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
     }
   }, [])
 
-  const onEscape = useEffectEvent(close)
+  const onEscape = useEffectEvent(() => {
+    if (!activeModelRef.current) close()
+  })
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onEscape()
@@ -136,20 +143,32 @@ export function ProjectModal({ project, index, total, nextTitle, flipState, getC
               <ProjectCover project={project} />
             )}
           </div>
-          {gallery && gallery.length > 1 && (
+          {(gallery || project.modelUrl) && (
             <div className="modal__views" role="tablist" aria-label={project.title}>
-              {gallery.map((item, viewIdx) => (
+              {gallery &&
+                gallery.length > 1 &&
+                gallery.map((item, viewIdx) => (
+                  <button
+                    key={item.src}
+                    type="button"
+                    role="tab"
+                    aria-selected={viewIdx === activeMediaIndex}
+                    className={cls('modal__view-btn', viewIdx === activeMediaIndex && 'is-active')}
+                    onClick={() => setMediaState({ projectId: project.id, index: viewIdx })}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              {project.modelUrl && (
                 <button
-                  key={item.src}
                   type="button"
-                  role="tab"
-                  aria-selected={viewIdx === activeMediaIndex}
-                  className={cls('modal__view-btn', viewIdx === activeMediaIndex && 'is-active')}
-                  onClick={() => setMediaState({ projectId: project.id, index: viewIdx })}
+                  className="modal__view-btn modal__view-btn--3d"
+                  onClick={() => openModelViewer(project.id)}
                 >
-                  {item.label}
+                  <Cube3D width={14} height={14} />
+                  <span>{lang === 'zh' ? '3D 旋转模型' : '3D Orbit'}</span>
                 </button>
-              ))}
+              )}
             </div>
           )}
           <span className="modal__counter">

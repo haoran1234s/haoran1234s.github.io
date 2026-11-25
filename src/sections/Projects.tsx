@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState, type MouseEvent } from 'react'
 import { useApp } from '../context/app-context'
 import type { Project } from '../data/content'
-import { ArrowUpRight } from '../components/Icons'
+import { ArrowUpRight, Cube3D } from '../components/Icons'
 import { ProjectCover } from '../components/ProjectCover'
 import { ProjectModal, type FlipState } from '../components/ProjectModal'
 import { SectionHeading } from '../components/SectionHeading'
@@ -20,8 +20,8 @@ interface OpenState {
   flip: FlipState | null
 }
 
-export function Projects() {
-  const { content } = useApp()
+export function Projects({ sectionIndex = '04' }: { sectionIndex?: string }) {
+  const { content, lang, openModelViewer } = useApp()
   const { projects, ui } = content
   const items = projects.items
   const root = useRef<HTMLElement>(null)
@@ -130,7 +130,7 @@ export function Projects() {
     <section id="projects" className="projects" ref={root}>
       <div className="projects__pin">
         <div className="container projects__head">
-          <SectionHeading index="04" label={projects.label} title={projects.title} intro={projects.intro} />
+          <SectionHeading index={sectionIndex} label={projects.label} title={projects.title} intro={projects.intro} />
           <div className="projects__progress" aria-hidden="true">
             <span className="projects__count">
               <span className="projects__current">01</span> / {pad(items.length)}
@@ -145,6 +145,17 @@ export function Projects() {
         <ul className="projects__track">
           {items.map((project, index) => (
             <li className="project-card" key={project.id}>
+              {project.modelUrl && (
+                <button
+                  type="button"
+                  className="project-card__3d-btn"
+                  onClick={() => openModelViewer(project.id)}
+                  aria-label={`${lang === 'zh' ? '3D 旋转查看' : '3D Orbit'}: ${project.title}`}
+                >
+                  <Cube3D width={14} height={14} />
+                  <span>{lang === 'zh' ? '3D 旋转查看' : '3D Orbit'}</span>
+                </button>
+              )}
               <button
                 type="button"
                 className="project-card__open"
@@ -159,7 +170,7 @@ export function Projects() {
                   <span className="project-card__parallax">
                     <ProjectCover project={project} />
                   </span>
-                  <span className="project-card__badge">
+                  <span className={`project-card__badge${project.modelUrl ? ' project-card__badge--left' : ''}`}>
                     {ui.view}
                     <ArrowUpRight width={14} height={14} />
                   </span>

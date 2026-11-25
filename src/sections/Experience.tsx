@@ -12,7 +12,7 @@ const spotlight = (event: PointerEvent<HTMLElement>) => {
   event.currentTarget.style.setProperty('--my', `${event.clientY - rect.top}px`)
 }
 
-export function Experience() {
+export function Experience({ sectionIndex = '03' }: { sectionIndex?: string }) {
   const { content } = useApp()
   const { experience } = content
   const root = useRef<HTMLElement>(null)
@@ -48,7 +48,7 @@ export function Experience() {
   return (
     <section id="experience" className="section experience" ref={root}>
       <div className="container">
-        <SectionHeading index="03" label={experience.label} title={experience.title} />
+        <SectionHeading index={sectionIndex} label={experience.label} title={experience.title} />
         <div className="timeline">
           <div className="timeline__rail" aria-hidden="true">
             <div className="timeline__progress" />

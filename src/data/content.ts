@@ -108,6 +108,8 @@ export interface Project {
   gallery?: ProjectMediaItem[]
   /** 可选 3D 工程交付参数 */
   specs?: ProjectSpec[]
+  /** 可选 Blender glTF 3D 模型路径，用于交互式 360° 旋转检视弹框 */
+  modelUrl?: string
 }
 
 export interface LabItem {

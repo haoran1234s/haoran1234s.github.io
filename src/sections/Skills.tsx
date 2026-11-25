@@ -8,7 +8,7 @@ import { gsap, useGSAP } from '../lib/gsap'
 import { pad, prefersReducedMotion } from '../lib/motion'
 import './Skills.css'
 
-export function Skills() {
+export function Skills({ sectionIndex = '02' }: { sectionIndex?: string }) {
   const { content } = useApp()
   const { skills, ui } = content
   const root = useRef<HTMLElement>(null)
@@ -47,7 +47,7 @@ export function Skills() {
   return (
     <section id="skills" className="section skills" ref={root}>
       <div className="container">
-        <SectionHeading index="02" label={skills.label} title={skills.title} intro={skills.intro} />
+        <SectionHeading index={sectionIndex} label={skills.label} title={skills.title} intro={skills.intro} />
         <div className="skills__grid">
           <div className="skills__sphere">
             <TagSphere tags={tags} highlight={highlight} dragLabel={ui.drag} />

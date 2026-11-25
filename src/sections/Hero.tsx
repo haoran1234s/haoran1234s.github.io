@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useApp } from '../context/app-context'
-import { ArrowDown, ArrowRight, Download } from '../components/Icons'
+import { ArrowDown, ArrowRight, Cube3D, Download } from '../components/Icons'
 import { LocalTime } from '../components/LocalTime'
 import { MagneticButton } from '../components/MagneticButton'
 import { RoleCycler } from '../components/ScrambleText'
@@ -107,8 +107,9 @@ function HeroCanvas({ ready }: { ready: boolean }) {
 }
 
 function HeroContent({ active }: { active: boolean }) {
-  const { content, ready } = useApp()
-  const { hero, profile, ui } = content
+  const { content, lang, ready, openModelViewer } = useApp()
+  const { hero, profile, projects, ui } = content
+  const has3dModels = projects.items.some((item) => Boolean(item.modelUrl))
   const root = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -164,16 +165,35 @@ function HeroContent({ active }: { active: boolean }) {
         <div className="hero__bottom">
           <p className="hero__intro">{hero.intro}</p>
           <div className="hero__cta">
-            <MagneticButton
-              href="#projects"
-              icon={<ArrowRight />}
-              onClick={(event) => {
-                event.preventDefault()
-                scrollToTarget('#projects')
-              }}
-            >
-              {hero.primaryCta}
-            </MagneticButton>
+            {has3dModels ? (
+              <>
+                <MagneticButton icon={<Cube3D />} onClick={() => openModelViewer()}>
+                  {lang === 'zh' ? '3D 模型旋转检视' : 'Inspect 3D models'}
+                </MagneticButton>
+                <MagneticButton
+                  variant="ghost"
+                  href="#projects"
+                  icon={<ArrowRight />}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    scrollToTarget('#projects')
+                  }}
+                >
+                  {hero.primaryCta}
+                </MagneticButton>
+              </>
+            ) : (
+              <MagneticButton
+                href="#projects"
+                icon={<ArrowRight />}
+                onClick={(event) => {
+                  event.preventDefault()
+                  scrollToTarget('#projects')
+                }}
+              >
+                {hero.primaryCta}
+              </MagneticButton>
+            )}
             <MagneticButton variant="ghost" icon={<Download />} onClick={() => window.print()} ariaLabel={ui.downloadResume}>
               {hero.secondaryCta}
             </MagneticButton>

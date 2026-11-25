@@ -94,10 +94,10 @@ const zh: Content = {
     consoleGreeting: '你好！这是一份专为 AI + Blender 3D 创作协作定制的在线简历与作品集。',
   },
   nav: [
+    { id: 'projects', label: '作品' },
     { id: 'about', label: '关于' },
     { id: 'skills', label: '技能' },
     { id: 'experience', label: '经历' },
-    { id: 'projects', label: '作品' },
     { id: 'pipeline', label: '交付规范' },
     { id: 'contact', label: '联系' },
   ],
@@ -220,6 +220,7 @@ const zh: Content = {
         stack: ['Blender 4.x', 'Cycles', '8K PBR', 'Hard-Surface', 'UV Unwrap'],
         links: [],
         cover: './covers/ai3d/camera-render.webp',
+        modelUrl: './models/ai3d/camera.glb',
         gallery: [
           { src: './covers/ai3d/camera-render.webp', label: 'Cycles 写实渲染' },
           { src: './covers/ai3d/camera-clay.webp', label: '白模布线拆解' },
@@ -250,6 +251,7 @@ const zh: Content = {
         stack: ['Blender 4.x', 'Cycles', '4K PBR', 'Python (bpy)', 'Procedural'],
         links: [],
         cover: './covers/ai3d/coffee-render.webp',
+        modelUrl: './models/ai3d/coffee-cart.glb',
         gallery: [
           { src: './covers/ai3d/coffee-render.webp', label: 'Cycles 写实渲染' },
           { src: './covers/ai3d/coffee-clay.webp', label: '白模布线拆解' },
@@ -280,6 +282,7 @@ const zh: Content = {
         stack: ['Blender 4.x', 'Retopology', 'Normal Baking', '8K PBR', 'Cycles'],
         links: [],
         cover: './covers/ai3d/chair-render.webp',
+        modelUrl: './models/ai3d/lounge-chair.glb',
         gallery: [
           { src: './covers/ai3d/chair-render.webp', label: 'Cycles 写实渲染' },
           { src: './covers/ai3d/chair-clay.webp', label: '白模布线拆解' },
@@ -310,6 +313,7 @@ const zh: Content = {
         stack: ['Blender 4.x', 'Cycles', 'Hard-Surface', '4K PBR', 'Python QA'],
         links: [],
         cover: './covers/ai3d/lantern-render.webp',
+        modelUrl: './models/ai3d/storm-lantern.glb',
         gallery: [
           { src: './covers/ai3d/lantern-render.webp', label: 'Cycles 写实渲染' },
           { src: './covers/ai3d/lantern-clay.webp', label: '白模布线拆解' },
@@ -437,10 +441,10 @@ const en: Content = {
     consoleGreeting: 'Hello! This view is tailored for AI + Blender photorealistic 3D production.',
   },
   nav: [
+    { id: 'projects', label: '3D Work' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: '3D Work' },
     { id: 'pipeline', label: 'Pipeline' },
     { id: 'contact', label: 'Contact' },
   ],
@@ -563,6 +567,7 @@ const en: Content = {
         stack: ['Blender 4.x', 'Cycles', '8K PBR', 'Hard-Surface', 'UV Unwrap'],
         links: [],
         cover: './covers/ai3d/camera-render.webp',
+        modelUrl: './models/ai3d/camera.glb',
         gallery: [
           { src: './covers/ai3d/camera-render.webp', label: 'Cycles Render' },
           { src: './covers/ai3d/camera-clay.webp', label: 'Clay & Wireframe' },
@@ -593,6 +598,7 @@ const en: Content = {
         stack: ['Blender 4.x', 'Cycles', '4K PBR', 'Python (bpy)', 'Procedural'],
         links: [],
         cover: './covers/ai3d/coffee-render.webp',
+        modelUrl: './models/ai3d/coffee-cart.glb',
         gallery: [
           { src: './covers/ai3d/coffee-render.webp', label: 'Cycles Render' },
           { src: './covers/ai3d/coffee-clay.webp', label: 'Clay & Wireframe' },
@@ -623,6 +629,7 @@ const en: Content = {
         stack: ['Blender 4.x', 'Retopology', 'Normal Baking', '8K PBR', 'Cycles'],
         links: [],
         cover: './covers/ai3d/chair-render.webp',
+        modelUrl: './models/ai3d/lounge-chair.glb',
         gallery: [
           { src: './covers/ai3d/chair-render.webp', label: 'Cycles Render' },
           { src: './covers/ai3d/chair-clay.webp', label: 'Clay & Wireframe' },
@@ -653,6 +660,7 @@ const en: Content = {
         stack: ['Blender 4.x', 'Cycles', 'Hard-Surface', '4K PBR', 'Python QA'],
         links: [],
         cover: './covers/ai3d/lantern-render.webp',
+        modelUrl: './models/ai3d/storm-lantern.glb',
         gallery: [
           { src: './covers/ai3d/lantern-render.webp', label: 'Cycles Render' },
           { src: './covers/ai3d/lantern-clay.webp', label: 'Clay & Wireframe' },

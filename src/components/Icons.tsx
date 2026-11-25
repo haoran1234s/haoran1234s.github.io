@@ -95,3 +95,10 @@ export const Layout = (props: IconProps) => (
     <path d="M3.5 10h17M10 10v10.5" />
   </svg>
 )
+
+export const Cube3D = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4L12 2.8Z" />
+    <path d="M4 7.4 12 12l8-4.6M12 12v9.2" />
+  </svg>
+)

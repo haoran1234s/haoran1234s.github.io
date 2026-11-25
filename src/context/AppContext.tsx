@@ -103,6 +103,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [track] = useState<Track>(resolveTrack)
   const [theme, setTheme] = useState<Theme>(initialTheme)
   const [ready, setReady] = useState(false)
+  const [activeModelId, setActiveModelId] = useState<string | null>(null)
   const content = (track === 'ai3d' ? ai3dContent : contentByLang)[lang]
 
   useEffect(() => {
@@ -157,9 +158,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const markReady = useCallback(() => setReady(true), [])
 
+  const openModelViewer = useCallback(
+    (projectId?: string) => {
+      const firstModel = content.projects.items.find((item) => Boolean(item.modelUrl))
+      const targetId = projectId ?? firstModel?.id ?? null
+      if (targetId) setActiveModelId(targetId)
+    },
+    [content.projects.items],
+  )
+
+  const closeModelViewer = useCallback(() => setActiveModelId(null), [])
+
   const value = useMemo(
-    () => ({ lang, track, theme, content, ready, markReady, toggleLang, toggleTheme }),
-    [lang, track, theme, content, ready, markReady, toggleLang, toggleTheme],
+    () => ({
+      lang,
+      track,
+      theme,
+      content,
+      ready,
+      activeModelId,
+      markReady,
+      toggleLang,
+      toggleTheme,
+      openModelViewer,
+      closeModelViewer,
+    }),
+    [lang, track, theme, content, ready, activeModelId, markReady, toggleLang, toggleTheme, openModelViewer, closeModelViewer],
   )
 
   return <AppContext value={value}>{children}</AppContext>

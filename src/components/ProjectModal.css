@@ -101,6 +101,20 @@
   font-weight: 600;
 }
 
+.modal__view-btn--3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.modal__view-btn--3d:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
 .modal__counter {
   position: absolute;
   left: 18px;

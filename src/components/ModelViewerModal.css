@@ -1,0 +1,234 @@
+.mv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: grid;
+  padding: clamp(10px, 2vw, 24px);
+}
+
+.mv-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 9, 12, 0.84);
+  backdrop-filter: blur(14px);
+}
+
+.mv-shell {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 50% 42%, #2a2d38 0%, #14161c 58%, #0b0c10 100%);
+  box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.72);
+}
+
+.mv-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.mv-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.mv-canvas:active {
+  cursor: grabbing;
+}
+
+.mv-top {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(16px, 2.4vw, 28px);
+  pointer-events: none;
+}
+
+.mv-meta {
+  display: grid;
+  gap: 6px;
+  max-width: min(640px, calc(100% - 64px));
+  pointer-events: auto;
+}
+
+.mv-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.mv-title {
+  font-size: clamp(1.1rem, 2vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #f3f1ea;
+}
+
+.mv-hint {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(243, 241, 234, 0.68);
+}
+
+.mv-close {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  background: rgba(12, 13, 18, 0.72);
+  color: #f3f1ea;
+  backdrop-filter: blur(8px);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    rotate 0.45s var(--ease-back);
+}
+
+.mv-close:hover {
+  background: #f3f1ea;
+  color: #0b0b0e;
+  rotate: 90deg;
+}
+
+.mv-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(12, 13, 18, 0.8);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #f3f1ea;
+}
+
+.mv-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: mv-spin 0.8s linear infinite;
+}
+
+@keyframes mv-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.mv-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+.mv-hud {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(14px, 2vw, 24px);
+  pointer-events: none;
+}
+
+.mv-models,
+.mv-controls {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(12, 13, 18, 0.72);
+  backdrop-filter: blur(12px);
+}
+
+.mv-pill,
+.mv-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(243, 241, 234, 0.78);
+  white-space: nowrap;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.mv-pill:hover,
+.mv-tool:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mv-pill.is-active,
+.mv-tool.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+.mv-pill__index {
+  opacity: 0.72;
+}
+
+@media (max-width: 720px) {
+  .mv-hud {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mv-models,
+  .mv-controls {
+    border-radius: var(--radius-md);
+    justify-content: center;
+  }
+}

@@ -6,7 +6,7 @@ import { gsap, SplitText, useGSAP } from '../lib/gsap'
 import { hasFinePointer, isCJK, prefersReducedMotion } from '../lib/motion'
 import './About.css'
 
-export function About() {
+export function About({ sectionIndex = '01' }: { sectionIndex?: string }) {
   const { content } = useApp()
   const { about, profile } = content
   const root = useRef<HTMLElement>(null)
@@ -116,7 +116,7 @@ export function About() {
         </div>
 
         <div className="about__main">
-          <SectionHeading index="01" label={about.label} title={about.title} />
+          <SectionHeading index={sectionIndex} label={about.label} title={about.title} />
           <div className="about__text">
             <p className="sr-only">{about.paragraph}</p>
             <p className="about__paragraph" aria-hidden="true">
